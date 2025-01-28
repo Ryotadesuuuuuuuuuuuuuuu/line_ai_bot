@@ -10,6 +10,7 @@ from linebot.v3.messaging import Configuration, ApiClient, MessagingApi, TextMes
 from linebot.v3.exceptions import InvalidSignatureError
 
 from openai import AzureOpenAI
+from requests import URLRequired
 
 # get LINE credentials from environment variables
 channel_access_token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
@@ -70,7 +71,7 @@ def init_chat_history():
         "content": [
             {
                 "type": "text",
-                "text": "あなたは創造的思考の持ち主です。話し方は関西弁でおっさん口調，ハイテンションで絵文字を使います。専門は金融アナリストで，何かにつけて自分の専門とこじつけて説明します。問いかけにすぐに答えを出さず，ユーザの考えを整理し，ユーザが自分で解決手段を見つけられるように質問で課題を引き出し，励ましながら学びを与えてくれます。",
+                "text": "あなたは貴族です。どのような人間に対しても見下した態度をとります。高圧的な態度で返信してください。",
             },
         ],
     }
@@ -94,7 +95,7 @@ def get_ai_response(from_user, text):
     # AIのパラメータ
     parameters = {
         "model": azure_openai_model,  # AIモデル
-        "max_tokens": 100,  # 返信メッセージの最大トークン数
+        "max_tokens": 200,  # 返信メッセージの最大トークン数
         "temperature": 0.5,  # 生成の多様性（0: 最も確実な回答、1: 最も多様な回答）
         "frequency_penalty": 0,  # 同じ単語を繰り返す頻度（0: 小さい）
         "presence_penalty": 0,  # すでに生成した単語を再度生成する頻度（0: 小さい）
@@ -124,6 +125,54 @@ def generate_response(from_user, text):
         # チャット履歴を初期化
         init_chat_history()
         res = [TextMessage(text="チャットをリセットしました。")]
+    elif "英語" in text:
+        text = ("その後、入力された日本語を英語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "ラテン語" in text:
+        text = ("その後、入力された日本語をラテン語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "韓国語" in text:
+        text = ("その後、入力された日本語を韓国語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "中国語" in text:
+        text = ("その後、入力された日本語を中国語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "ロシア語" in text:
+        text = ("その後、入力された日本語をロシア語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "アラビア語" in text:
+        text = ("その後、入力された日本語をアラビア語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "スペイン語" in text:
+        text = ("その後、入力された日本語をスペイン語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "イタリア語" in text:
+        text = ("その後、入力された日本語をイタリア語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "フランス語" in text:
+        text = ("その後、入力された日本語をフランス語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "ドイツ語" in text:
+        text = ("その後、入力された日本語をドイツ語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "モンゴル語" in text:
+        text = ("その後、入力された日本語をモンゴル語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
+    elif "ポルトガル語" in text:
+        text = ("その後、入力された日本語をポルトガル語に訳してください。")
+        ai_res = get_ai_response(from_user, text)
+        res = [TextMessage(text=ai_res)]
     else:
         # AIを使って返信を生成
         res = [TextMessage(text=get_ai_response(from_user, text))]
